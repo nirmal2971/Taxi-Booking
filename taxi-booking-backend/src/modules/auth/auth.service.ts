@@ -15,18 +15,21 @@ export const registerUser = async (data: any) => {
   // hash password
   const hashedPassword = await bcrypt.hash(data.password, 10);
 
+  // ✅ role logic (ADD THIS)
+  const role = data.email === process.env.ADMIN_EMAIL ? "ADMIN" : "USER";
+
   // create user
   const user = await prisma.user.create({
     data: {
       name: data.name,
       email: data.email,
       password: hashedPassword,
+      role, // ✅ added here
     },
   });
 
   return user;
 };
-
 export const loginUser = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({
     where: { email },
@@ -46,7 +49,7 @@ export const loginUser = async (email: string, password: string) => {
   const token = jwt.sign(
     { id: user.id, role: user.role },
     process.env.JWT_SECRET as string,
-    { expiresIn: "1d" }
+    { expiresIn: "1d" },
   );
 
   return { token };
