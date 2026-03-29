@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://taxi-backend-awjx.onrender.com",
+  baseURL: "https://taxi-backend-awjx.onrender.com/api",
 });
 
 API.interceptors.request.use((config) => {
