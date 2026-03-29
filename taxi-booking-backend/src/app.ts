@@ -6,21 +6,21 @@ import fareRoutes from "./modules/fare/fare.routes";
 import bookingRoutes from "./modules/booking/booking.routes";
 import errorMiddleware from "./middlewares/error.middleware";
 
-
-
-
-
 const app = express();
 
-app.use(cors({
-  origin: "https://taxi-booking-three.vercel.app/",
-  credentials: true
-}));app.use(express.json());
+app.use(
+  cors({
+    origin: "https://taxi-booking-three.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }),
+);
+app.use(express.json());
 
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/vehicles", vehicleRoutes);
-app.use("/api/fare", fareRoutes);   
+app.use("/api/fare", fareRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use(errorMiddleware);
 
