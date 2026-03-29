@@ -12,8 +12,10 @@ import errorMiddleware from "./middlewares/error.middleware";
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: "https://taxi-booking-three.vercel.app/",
+  credentials: true
+}));app.use(express.json());
 
 // routes
 app.use("/api/auth", authRoutes);
